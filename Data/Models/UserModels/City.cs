@@ -1,6 +1,5 @@
 ﻿namespace LuxuryCarsApp.Data.Models.UserModels
-{
-    using LuxuryCarsApp.Models.UserModels;
+{ 
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     public class City

@@ -50,7 +50,7 @@ namespace LuxuryCarsApp
             // btnAdd
             // 
             this.btnAdd.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAdd.Location = new System.Drawing.Point(266, 304);
+            this.btnAdd.Location = new System.Drawing.Point(266, 303);
             this.btnAdd.MaximumSize = new System.Drawing.Size(77, 33);
             this.btnAdd.MinimumSize = new System.Drawing.Size(77, 33);
             this.btnAdd.Name = "btnAdd";

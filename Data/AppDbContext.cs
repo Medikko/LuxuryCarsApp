@@ -1,10 +1,6 @@
-﻿using LuxuryCarsApp.Models;
+﻿using LuxuryCarsApp.Data.Models.UserModels;
+using LuxuryCarsApp.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LuxuryCarsApp.Data
 {
@@ -12,6 +8,8 @@ namespace LuxuryCarsApp.Data
     {
         public virtual DbSet<Car> Cars { get; set; }
         public virtual DbSet<Manufacture> Manufactures { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

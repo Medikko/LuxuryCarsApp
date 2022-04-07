@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LuxuryCarsApp.Data.Models.UserModels
+﻿namespace LuxuryCarsApp.Data.Models.UserModels
 {
     public enum Role
     {
