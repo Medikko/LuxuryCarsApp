@@ -48,23 +48,25 @@
             // 
             this.btnAddRole.BackColor = System.Drawing.Color.ForestGreen;
             this.btnAddRole.ForeColor = System.Drawing.Color.White;
-            this.btnAddRole.Location = new System.Drawing.Point(217, 392);
+            this.btnAddRole.Location = new System.Drawing.Point(23, 397);
             this.btnAddRole.Name = "btnAddRole";
-            this.btnAddRole.Size = new System.Drawing.Size(101, 41);
+            this.btnAddRole.Size = new System.Drawing.Size(99, 27);
             this.btnAddRole.TabIndex = 1;
             this.btnAddRole.Text = "Make Admin";
             this.btnAddRole.UseVisualStyleBackColor = false;
+            this.btnAddRole.Click += new System.EventHandler(this.btnAddRole_Click);
             // 
             // btnCancel
             // 
             this.btnCancel.BackColor = System.Drawing.Color.Red;
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(345, 392);
+            this.btnCancel.Location = new System.Drawing.Point(688, 397);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(95, 41);
+            this.btnCancel.Size = new System.Drawing.Size(74, 27);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // RoleForm
             // 
@@ -76,6 +78,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "RoleForm";
             this.Text = "RoleForm";
+            this.Load += new System.EventHandler(this.RoleForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 

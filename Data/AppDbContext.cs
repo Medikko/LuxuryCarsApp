@@ -14,7 +14,7 @@ namespace LuxuryCarsApp.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer($@"Server=DESKTOP-AELUB3Q\SQLEXPRESS;Database=Books;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer($@"Server=DESKTOP-AELUB3Q\SQLEXPRESS;Database=LuxuryCars;Trusted_Connection=True;");
             }
         }
     }

@@ -1,18 +1,15 @@
-﻿using LuxuryCarsApp.Data;
-using LuxuryCarsApp.Data.Models.UserModels;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
-using System.Windows.Forms;
-
-namespace LuxuryCarsApp
+﻿namespace LuxuryCarsApp
 {
+    using LuxuryCarsApp.Data;
+    using LuxuryCarsApp.Data.Models.UserModels;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Security.Cryptography;
+    using System.Windows.Forms;
+    using LuxuryCarsApp.Constants;
+    using LuxuryCarsApp.Models;
     public partial class LoginForm : Form
     {
         AppDbContext context;
@@ -33,33 +30,72 @@ namespace LuxuryCarsApp
                 }
                 else
                 {
-                    if (user.Role==Role.Admin || user.Role==Role.Boss)
+                    if (GlobalConstant.buttonLogin=="Add")
                     {
-                        MessageBox.Show($"Welcome back {user.UserName}");
-                        AddLuxuryCar addLuxuryCar = Application.OpenForms.OfType<AddLuxuryCar>().FirstOrDefault();
-                        if (addLuxuryCar!=null)
+                        if (user.Role == Role.Admin || user.Role == Role.Boss)
                         {
-                            addLuxuryCar.Show();
+                            MessageBox.Show($"Welcome back {user.UserName}");
+                            AddLuxuryCar addLuxuryCar = new AddLuxuryCar();
+                            if (addLuxuryCar != null)
+                            {
+                                addLuxuryCar.Show();
+                            }
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("You login seccessful but still have permission for that opeartion!", "Information", MessageBoxButtons.OK);
+                            MainForm mainForm = Application.OpenForms.OfType<MainForm>().FirstOrDefault();
+                            if (mainForm != null)
+                            {
+                                mainForm.Show();
+                            }
+                            this.Close();
+                        }
+                    }
+                    else if(GlobalConstant.buttonLogin == "Buy")
+                    {
+                        List<Car> cars = context.Cars.ToList();
+                        if (cars.Any())
+                        {
+                            if (user.Balance>=cars[GlobalConstant.item].Price)
+                            {
+                                user.Balance -= cars[GlobalConstant.item].Price;
+                                string carBrand = cars[GlobalConstant.item].Brand;
+                                string carModel = cars[GlobalConstant.item].Name;
+                                decimal carPrice = cars[GlobalConstant.item].Price;
+                                DateTime order = DateTime.UtcNow.AddDays(30);
+                                context.Cars.Remove(cars[GlobalConstant.item]);
+                                context.SaveChanges();
+                                cars.Remove(cars[GlobalConstant.item]);
+                                MessageBox.Show($"You have seccesfully purchase {carBrand} {carModel} for {carPrice:f2}","Info",MessageBoxButtons.OK);
+                                MessageBox.Show($"Your order is processing and will dilevery on {order.Date}");
+                            }
+                            else
+                            {
+                                MessageBox.Show($"You haven't enough balance to buy this car!", "Error", MessageBoxButtons.OK);
+                            }
                         }
                         this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("You login seccessful but still have permission for that opeartion!","Information",MessageBoxButtons.OK);
-                        MainForm mainForm = Application.OpenForms.OfType<MainForm>().FirstOrDefault();
-                        if (mainForm!=null)
+                        MainForm mainForm = new MainForm();
+                        if (mainForm != null)
                         {
                             mainForm.Show();
                         }
-                        this.Close();
                     }
+                   
                 }
             }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
+            MainForm mainForm = Application.OpenForms.OfType<MainForm>().FirstOrDefault();
+            if (mainForm != null)
+            {
+                mainForm.Show();
+            }
+            this.Close();
         }
         public static string Hash(string input)
         {
@@ -77,7 +113,32 @@ namespace LuxuryCarsApp
         }
         private void btnRegister_Click(object sender, EventArgs e)
         {
+            RegisterForm registerForm = new RegisterForm();
+            registerForm.Show();
+            this.Close();
+        }
 
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            tbUsername.Text = "";
+            tbPassword.Text = "";
+            tbPassword.UseSystemPasswordChar = true;
+
+        }
+
+        private void ckPassword_Click(object sender, EventArgs e)
+        {
+            if (ckPassword.Checked == true)
+            {
+                ckPassword.Checked = false;
+                tbPassword.UseSystemPasswordChar = true;
+
+            }
+            else
+            {
+                ckPassword.Checked = true;
+                tbPassword.UseSystemPasswordChar = false;
+            }
         }
     }
 }
